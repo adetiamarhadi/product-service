@@ -1,7 +1,10 @@
 package com.github.adetiamarhadi.productservice.command;
 
+import com.github.adetiamarhadi.productservice.core.events.ProductCreatedEvent;
 import org.axonframework.commandhandling.CommandHandler;
+import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
+import org.springframework.beans.BeanUtils;
 
 import java.math.BigDecimal;
 
@@ -21,5 +24,11 @@ public class ProductAggregate {
 				|| createProductCommand.getTitle().isBlank()) {
 			throw new IllegalArgumentException("title cannot be empty");
 		}
+
+		ProductCreatedEvent productCreatedEvent = new ProductCreatedEvent();
+
+		BeanUtils.copyProperties(createProductCommand, productCreatedEvent);
+
+		AggregateLifecycle.apply(productCreatedEvent);
 	}
 }
