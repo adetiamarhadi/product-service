@@ -17,6 +17,7 @@
 		<java.version>11</java.version>
 		<spring-cloud.version>2021.0.0</spring-cloud.version>
 		<axon.version>4.5.8</axon.version>
+		<guava.version>31.0.1-jre</guava.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -31,6 +32,11 @@
 			<groupId>org.axonframework</groupId>
 			<artifactId>axon-spring-boot-starter</artifactId>
 			<version>${axon.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
 		</dependency>
 
 		<dependency>
