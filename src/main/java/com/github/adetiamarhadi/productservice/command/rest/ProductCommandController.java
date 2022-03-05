@@ -1,6 +1,7 @@
-package com.github.adetiamarhadi.productservice.rest;
+package com.github.adetiamarhadi.productservice.command.rest;
 
 import com.github.adetiamarhadi.productservice.command.CreateProductCommand;
+import com.github.adetiamarhadi.productservice.rest.CreateProductRestModel;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -16,13 +17,13 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/products")
-public class ProductController {
+public class ProductCommandController {
 
 	private final Environment env;
 	private final CommandGateway commandGateway;
 
 	@Autowired
-	public ProductController(Environment env, CommandGateway commandGateway) {
+	public ProductCommandController(Environment env, CommandGateway commandGateway) {
 		this.env = env;
 		this.commandGateway = commandGateway;
 	}
