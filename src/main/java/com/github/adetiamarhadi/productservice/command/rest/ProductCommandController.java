@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
@@ -26,7 +27,7 @@ public class ProductCommandController {
 	}
 
 	@PostMapping
-	public String createProduct(@RequestBody CreateProductRestModel createProductRestModel) {
+	public String createProduct(@Valid @RequestBody CreateProductRestModel createProductRestModel) {
 
 		CreateProductCommand createProductCommand = CreateProductCommand.builder()
 				.price(createProductRestModel.getPrice())
