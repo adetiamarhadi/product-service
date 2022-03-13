@@ -1,4 +1,4 @@
-package com.github.adetiamarhadi.productservice.rest;
+package com.github.adetiamarhadi.productservice.command.rest;
 
 import lombok.Data;
 

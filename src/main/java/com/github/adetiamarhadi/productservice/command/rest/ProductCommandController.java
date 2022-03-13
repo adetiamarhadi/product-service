@@ -1,7 +1,6 @@
 package com.github.adetiamarhadi.productservice.command.rest;
 
 import com.github.adetiamarhadi.productservice.command.CreateProductCommand;
-import com.github.adetiamarhadi.productservice.rest.CreateProductRestModel;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
