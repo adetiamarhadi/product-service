@@ -3,6 +3,7 @@ package com.github.adetiamarhadi.productservice.query;
 import com.github.adetiamarhadi.productservice.core.data.ProductEntity;
 import com.github.adetiamarhadi.productservice.core.data.ProductRepository;
 import com.github.adetiamarhadi.productservice.core.events.ProductCreatedEvent;
+import com.github.adetiamarhadi.sagacore.events.ProductReservationCancelledEvent;
 import com.github.adetiamarhadi.sagacore.events.ProductReservedEvent;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
@@ -51,9 +52,30 @@ public class ProductEventsHandler {
     public void on(ProductReservedEvent productReservedEvent) {
 
         ProductEntity productEntity = productRepository.findByProductId(productReservedEvent.getProductId());
+
+        LOGGER.debug("ProductReservedEvent: current product quantity " + productReservedEvent.getQuantity());
+
         productEntity.setQuantity(productEntity.getQuantity() - productReservedEvent.getQuantity());
         productRepository.save(productEntity);
 
+        LOGGER.debug("ProductReservedEvent: new product quantity " + productReservedEvent.getQuantity());
+
         LOGGER.info("ProductReservedEvent is called for productId: " + productReservedEvent.getProductId() + " and orderId: " + productReservedEvent.getOrderId());
+    }
+
+    @EventHandler
+    public void on(ProductReservationCancelledEvent productReservationCancelledEvent) {
+
+        ProductEntity productEntity = productRepository.findByProductId(productReservationCancelledEvent.getProductId());
+
+        LOGGER.debug("ProductReservationCancelledEvent: current product quantity " + productReservationCancelledEvent.getQuantity());
+
+        int newQuantity = productEntity.getQuantity() + productReservationCancelledEvent.getQuantity();
+
+        productEntity.setQuantity(newQuantity);
+
+        productRepository.save(productEntity);
+
+        LOGGER.debug("ProductReservationCancelledEvent: new product quantity " + productReservationCancelledEvent.getQuantity());
     }
 }
